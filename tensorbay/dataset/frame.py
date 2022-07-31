@@ -7,7 +7,7 @@
 
 import logging
 from typing import Any, Dict, Optional, Type, TypeVar
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from ulid import ULID, from_str, from_uuid
 
@@ -96,7 +96,10 @@ class Frame(UserMutableMapping[str, "DataBase._Type"]):
         except ValueError:
             # Legacy fusion dataset use uuid as frame ID
             # Keep this code here to make SDK compatible with uuid
-            frame_id = from_uuid(UUID(body["frameId"]))
+            # frame_id = from_uuid(UUID(body["frameId"]))
+            
+            # test change to uuid4
+            frame_id = from_uuid(uuid4(body["frameId"]))
             if cls._logger_flag:
                 cls._logger_flag = False
                 logger.warning(
